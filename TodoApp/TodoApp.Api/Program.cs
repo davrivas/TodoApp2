@@ -1,9 +1,22 @@
+using Microsoft.EntityFrameworkCore;
+using TodoApp.DataAccess.Contexts;
+using TodoApp.DataAccess.Repositories;
+using TodoApp.Services;
+using TodoApp.Services.Mapping;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var connectionString = builder.Configuration.GetConnectionString("TodoAppDb");
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(connectionString, opts => opts.EnableRetryOnFailure()));
+
+builder.Services.AddScoped<ITodoItemService, TodoItemService>();
+builder.Services.AddScoped<ITodoItemRepository, TodoItemRepository>();
+
+builder.Services.AddAutoMapper(typeof(MappingProfiles));
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -22,4 +35,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+await app.RunAsync();
