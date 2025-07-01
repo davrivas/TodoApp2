@@ -6,7 +6,7 @@
       <form>
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Item</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+          <input required type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
         </div>
         <div class="mb-3 form-check">
           <input type="checkbox" class="form-check-input" id="exampleCheck1">
@@ -32,8 +32,8 @@
         <td>{{ item.item }}</td>
         <td>{{ item.isCompleted ? 'Yes' : 'No' }}</td>
         <td>
-          <button class="btn btn-primary me-1">Edit</button>
-          <button class="btn btn-danger">Delete</button>
+          <button class="btn btn-primary me-1" (click)="updateForm(item)">Edit</button>
+          <button class="btn btn-danger" (click)="deleteItem(item.id)">Delete</button>
         </td>
       </tr>
     </tbody>

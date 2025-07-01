@@ -3,7 +3,7 @@ import { BrowserModule, provideClientHydration, withEventReplay } from '@angular
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,7 +16,7 @@ import { provideHttpClient } from '@angular/common/http';
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideClientHydration(withEventReplay()),
-    provideHttpClient()
+    provideHttpClient(withFetch())
   ],
   bootstrap: [App]
 })
