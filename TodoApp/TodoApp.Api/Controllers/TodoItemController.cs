@@ -5,7 +5,7 @@ using TodoApp.Services.Models;
 namespace TodoApp.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class TodoItemController : ControllerBase
     {
         private readonly ILogger<TodoItemController> _logger;
@@ -62,7 +62,12 @@ namespace TodoApp.Api.Controllers
             try
             {
                 var id = await _todoItemService.AddAsync(todoItem);
-                return CreatedAtAction(nameof(GetById), new { id }, todoItem);
+                return Ok(new TodoItemOutputModel
+                {
+                    Id = id,
+                    Item = todoItem.Item,
+                    IsCompleted = todoItem.IsCompleted
+                });
             }
             catch (Exception ex)
             {
