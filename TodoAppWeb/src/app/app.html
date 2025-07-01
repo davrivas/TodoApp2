@@ -3,21 +3,21 @@
 
   <div class="row mb-5">
     <div class="col-md-6">
-      <form>
+      <form [formGroup]="todoItemForm" (ngSubmit)="submitForm()">
         <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Item</label>
-          <input required type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+          <label for="itemText" class="form-label">Item</label>
+          <input type="text" class="form-control" id="itemText" formControlName="item">
         </div>
         <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Is Completed?</label>
+          <input type="checkbox" class="form-check-input" id="isCompletedCheck" formControlName="isCompleted">
+          <label class="form-check-label" for="isCompletedCheck">Is Completed?</label>
         </div>
         <button type="submit" class="btn btn-primary">Create</button>
       </form>
     </div>
   </div>
 
-  <table *ngIf="items && items.length" class="table">
+  <table *ngIf="!isLoading" class="table">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -38,4 +38,8 @@
       </tr>
     </tbody>
   </table>
+
+  <div *ngIf="isLoading" class="spinner-border text-primary">
+    <span class="visually-hidden">Loading...</span>
+  </div>
 </div>
